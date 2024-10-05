@@ -1,0 +1,40 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  testtoshow:
+    build:
+      context: "/Users/shokhzodmurodov/Desktop/project/test/TestToShow"
+      dockerfile: "TestToShow/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/TestToShow.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "testtoshow:dev"
+    ports: []
+    volumes:
+    - "/Users/shokhzodmurodov/.nuget/packages:/home/app/.nuget/packages"
+    - "/Users/shokhzodmurodov/Desktop/project/test/TestToShow/TestToShow:/app:rw"
+    - "/Users/shokhzodmurodov/Desktop/project/test/TestToShow:/src:rw"
+    working_dir: "/app"
+  testtoshowseed:
+    build:
+      context: "/Users/shokhzodmurodov/Desktop/project/test/TestToShow"
+      dockerfile: "TestToShowSeed/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/TestToShowSeed.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "testtoshowseed:dev"
+    ports: []
+    volumes:
+    - "/Users/shokhzodmurodov/.nuget/packages:/home/app/.nuget/packages"
+    - "/Users/shokhzodmurodov/Desktop/project/test/TestToShow/TestToShowSeed:/app:rw"
+    - "/Users/shokhzodmurodov/Desktop/project/test/TestToShow:/src:rw"
+    working_dir: "/app"

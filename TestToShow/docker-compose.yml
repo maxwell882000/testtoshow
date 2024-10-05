@@ -1,0 +1,42 @@
+﻿services:
+  testtoshow:
+    image: testtoshow
+    build:
+      context: .
+      dockerfile: TestToShow/Dockerfile
+    networks:
+      - sqlnetwork
+    ports:
+      - "8080:8080"
+    environment:
+      Database__MsSQL__ConnectionString: "Server=mssql;Database=TestToShow;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;"
+
+  testtoshowseed:
+    image: testtoshowseed
+    build:
+      context: .
+      dockerfile: TestToShowSeed/Dockerfile
+    networks:
+      - sqlnetwork
+    environment:
+      Database__MsSQL__ConnectionString: "Server=mssql;Database=TestToShow;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;"
+
+  mssql:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    cap_add:
+      - SYS_PTRACE
+    environment:
+      - "ACCEPT_EULA=1"
+      - "MSSQL_SA_PASSWORD=yourStrong(!)Password"
+    ports:
+      - "57001:1433"
+    hostname: mssql
+    networks:
+      - sqlnetwork
+
+volumes:
+  sqlvolume:
+
+networks:
+  sqlnetwork:
+    driver: bridge
